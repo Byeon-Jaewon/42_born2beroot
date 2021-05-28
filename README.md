@@ -141,5 +141,52 @@ Broadcast message from root@wil (tty1) (Sun Apr 25 15:45:00 2021):
 
 ## Chpater V - Bonus Part
 
+보너스리스트 :
+- 아래의 구조와 비슷하게 파티션을 설치하세요.
+<pre>
+# lsblk
+NAME                         MAJ:MIN   RM    SIZE    RO      TYPE    MOUNTPOINT
+sda                            8:0      0      8G     0      disk
+├sda1                          8:1      0    487M     0      part    /boot
+├sda2                          8:2      0      1K     0      part
+├sda5                          8:5      0   30.3G     0      part
+   ├sda5_crypt               254:0      0   30.3G     0      crypt
+      ├LVMGroup--vg-root     254:1      0     10G     0      lvm     /
+      ├LVMGroup--vg-swap     254:2      0    2.3G     0      lvm     [SWAP]
+      ├LVMGroup--vg-home     254:3      0      5G     0      lvm     /home
+      ├LVMGroup--vg-var      254:4      0      3G     0      lvm     /var
+      ├LVMGroup--vg-srv      254:5      0      3G     0      lvm     /srv
+      ├LVMGroup--vg-tmp      254:6      0      3G     0      lvm     /tmp
+      ├LVMGroup--vg-var--log 254:7      0      4G     0      lvm     /home
+sr0                           11:0      1   1024M     0      rom
+</pre>
+- `Lighttpd`, `MariaDB`, `PHP`등의 서비스를 사용하여 , `WordPress`를 설정하세요.
+- 당신이 생각하기에 유용한 서비스(`NGINX / APACHE2`를 제외한)를 설치하세요. 디펜스동안 당신의 선택을 설명해야합니다.
+> 보너스파트를 마치기 위해 당신은 다른 서비스를 설정할 수 있습니다.    
+>  이 경우 당신은 필요에 따라 더 많은 포트를 열 수 있습니다.   
+>  물론 UFW규칙은 그에 맞게 조정되어야 합니다.   
+>> 보너스파트는 필수파트가 완벽할때만 평가됩니다.     
+>> 완벽하다는 것은 필수 파트가 오작동없이 통합적으로 작동된다는 것을 의미합니다.   
+>>  모든 필수 파트 요구사항을 통과하지 못한다면, 당신의 보너스파트는 평가되지 않습니다.   
+## Chapter 6 - 제출과 동료평가
+
+당신의 Git repository의 루트 경로에 `signature.txt`파일만 있어야합니다. 당신은 반드시 가상디스크의 시그니쳐를 붙여넣어야 합니다.
+시그니쳐를 얻기 위해, 기본설치폴더(VM이 저장된 폴더)를 열어야 합니다.
+- Windows : `%HOMEDRIVE%%HOMEPATH%\VirtualBox VMs\`
+- Linux   : `~/VirtualBox VMs/`
+- MacM1   : `~/Library/Containers/com.utmapp.UTM/Data/Documents`
+- MacOS   : `~/VirtualBox Vms/`
 
 
+그리고 sha1형식의 가상머신의 ".vdi"파일(UTM유저는 .qcow2)로부터 시그니쳐를 회수해야합니다.
+아래 4개의 예시는 centos_serv.vdi파일입니다.
+- Windows    : certUtil -hashfile centos_serv.vdi sha1
+- Linux      : sha1sum centos_serv.vdi
+- For Mac M1 : shasum Centos.utm/Images/disk-0.qcow2
+- MacOS      : shasum centos_serv.vdi
+
+당신이 얻어야할 출력의 예시입니다.
+- 6e657c4619944be17df3c31faa030c25e43e40af
+
+> 첫 평가후에 가상머신의 시그니쳐가 변경될 수 있습니다. 이문제를 해결하기위해 가상머신을 복제하거나 저장상태를 사용할 수 있습니다.
+>> 물론 Git repository에 가상머신을 제출하는 것은 금지되어 있습니다. 디펜스동안 당신의 signature.txt파일이 가상머신파일과 비교됩니다. 만약 두개가 동일하지 않다면 0점입니다.
