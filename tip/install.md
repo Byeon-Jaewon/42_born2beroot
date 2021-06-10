@@ -5,5 +5,4 @@
 
 https://www.debian.org/distrib/netinst 에서 최신 데비안 설치 후 settings/storage/ide 에서 설치받은 iso파일 넣고 시작
 
-
-
+vim까세용...
