@@ -41,11 +41,11 @@ printf "#User log : "
 who | wc -l
 
 printf "#Network : "
-ifconfig enp0s3 | grep broadcast | sed 's/netmask.*//g' | tr -d ' ' | tr -d 'inet' | tr -d '\n'
+/sbin/ifconfig enp0s3 | grep broadcast | sed 's/netmask.*//g' | tr -d ' ' | tr -d 'inet' | tr -d '\n'
 printf " ("
-ifconfig enp0s3 | grep 'ether ' | sed 's/txqueue.*//g' | tr -d 'ether' | tr -d ' ' | tr -d '\n'
+/sbin/ifconfig enp0s3 | grep 'ether ' | sed 's/txqueue.*//g' | tr -d 'ether' | tr -d ' ' | tr -d '\n'
 printf ")\n"
 
 printf "#sudo : "
-grep 'sudo:' /var/log/auth.log | grep 'COMMAND=' | wc -l | tr -d '\n'
+grep 'sudo:' /var/log/auth.log -a | grep 'COMMAND=' | wc -l | tr -d '\n'
 printf " cmd\n"
